@@ -20,7 +20,7 @@ public class QuizSession {
     public QuizSession(Student student, Topic topic) {
         this.student = student;
         this.topic = topic;
-        this.currentLevel = student.getStatistics.getAccuracy();
+        this.currentLevel = student.getStatistics().getAccuracy();
         this.correct = 0;
         this.total = 0;
         this.usedQuestions = new ArrayList<>();
@@ -81,7 +81,29 @@ public class QuizSession {
         while (usedQuestions.size() < possibleQuestions.size()) {
             Question question = selectQuestion();
             System.out.print(question.toString());
-            int answer = scanner.nextInt();
+            System.out.print("Enter your answer (number 0-3): ");
+
+            int answer = -1;
+            boolean isValidInput = false;
+
+            while (!isValidInput) {
+                if (!scanner.hasNextInt()) {
+                    System.out.println("Invalid input. Please enter a valid number.");
+                    scanner.next();
+                    System.out.print("Try again (number 0-3): ");
+                    continue;
+                }
+
+                answer = scanner.nextInt();
+
+                if (answer >= 0 && answer <= 3) {
+                    isValidInput = true;
+                } else {
+                    System.out.println("Number out of range. Please enter a number between 0 and 3.");
+                    System.out.print("Try again: ");
+                }
+            }
+
             boolean result = question.checkAnswer(answer);
             if (result) {
                 System.out.println("That is correct, congratulations!");
@@ -89,14 +111,13 @@ public class QuizSession {
             } else {
                 System.out.println("It is incorrect! :(");
             }
-            setcurrentLevel(result);
+            setCurrentLevel(result);
             this.total++;
             System.out.println("Next Question:");
 
         }
         System.out.println("There is not more questions.");
         System.out.println("Your final score was: " + this.correct + "/" + this.total);
-        this.student.getStatistics.update(correct, total);
+        this.student.getStatistics().update(correct, total);
     }
-
 }
