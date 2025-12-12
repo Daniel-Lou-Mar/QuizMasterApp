@@ -19,4 +19,14 @@ public class DifficultyEngine {
         return final_level;
     }
 
+    public int associateDifficulty(int difficulty) {
+        if (difficulty > 0 && difficulty <= 3) {
+            return 0;
+        }
+        if (difficulty >= 4 && difficulty <= 6) {
+            return 5;
+        } else {
+            return 10;
+        }
+    }
 }
