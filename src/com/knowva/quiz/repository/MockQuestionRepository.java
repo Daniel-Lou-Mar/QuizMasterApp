@@ -2,9 +2,11 @@ package com.knowva.quiz.repository;
 
 import com.knowva.quiz.repository.QuestionRepository;
 
+import java.util.List;
+
 public class MockQuestionRepository implements QuestionRepository {
     @Override
-    public getQuestionsByTopic(Topic topic) {
+    public List<Question> getQuestionsByTopic(Topic topic) {
         return topic.getQuestionList();
     }
 }
