@@ -11,7 +11,7 @@ public class QuizSession {
     private final DifficultyEngine difficultyEngine;
     private Student student;
     private Topic topic;
-    private int current_level;
+    private int currentLevel;
     private int correct;
     private int total;
     private List<Question> usedQuestions;
@@ -20,7 +20,7 @@ public class QuizSession {
     public QuizSession(Student student, Topic topic) {
         this.student = student;
         this.topic = topic;
-        this.current_level = student.statistics.getAccuracy();
+        this.currentLevel = student.getStatistics.getAccuracy();
         this.correct = 0;
         this.total = 0;
         this.usedQuestions = new ArrayList<>();
@@ -41,12 +41,12 @@ public class QuizSession {
         return possibleQuestions;
     }
 
-    public int getCurrent_level() {
-        return current_level;
+    public int getCurrentLevel() {
+        return currentLevel;
     }
 
-    public void setCurrent_level(boolean result) {
-        this.current_level = difficultyEngine.calculateNextDifficulty(this.current_level, result);
+    public void setCurrentLevel(boolean result) {
+        this.currentLevel = difficultyEngine.calculateNextDifficulty(this.currentLevel, result);
     }
 
     private boolean isUsed(Question question) {
@@ -54,8 +54,8 @@ public class QuizSession {
     }
 
     private Question selectQuestion() {
-        int difficulty = difficultyEngine.associateDifficulty(this.current_level);
-        for (int i; getPossibleQuestions().size(); i++) {
+        int difficulty = difficultyEngine.associateDifficulty(this.currentLevel);
+        for (int i=0; i < getPossibleQuestions().size(); i++) {
             Question current = getPossibleQuestions().get(i);
             if (!isUsed(current)) {
                 if (difficulty == current.getDifficulty()) {
@@ -64,12 +64,21 @@ public class QuizSession {
                 }
             }
         }
-        return getPossibleQuestions().getFirst();
+
+        // Search for any difficulty
+        for (Question q : getPossibleQuestions()) {
+            if (!isUsed(q)) {
+                setUsedQuestion(q);
+                return q;
+            }
+        }
+
+        return null;
     }
 
     public void startPractice() {
         Scanner scanner = new Scanner(System.in);
-        while (usedQuestions.size() <= possibleQuestions.size()) {
+        while (usedQuestions.size() < possibleQuestions.size()) {
             Question question = selectQuestion();
             System.out.print(question.toString());
             int answer = scanner.nextInt();
@@ -80,14 +89,14 @@ public class QuizSession {
             } else {
                 System.out.println("It is incorrect! :(");
             }
-            setCurrent_level(result);
+            setcurrentLevel(result);
             this.total++;
             System.out.println("Next Question:");
 
         }
         System.out.println("There is not more questions.");
         System.out.println("Your final score was: " + this.correct + "/" + this.total);
-        this.student.statistics.update(correct, total);
+        this.student.getStatistics.update(correct, total);
     }
 
 }
