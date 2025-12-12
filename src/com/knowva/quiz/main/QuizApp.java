@@ -1,4 +1,4 @@
-package src.com.knowva.quiz.main;
+package com.knowva.quiz.main;
 
 public class QuizApp {
 }
