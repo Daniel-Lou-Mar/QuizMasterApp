@@ -1,4 +1,4 @@
-package com.knowva.quiz.repository;
+package com.knowva.quiz.service;
 
 public class DifficultyEngine {
     /**
