@@ -1,5 +1,8 @@
 package com.knowva.quiz.service;
 
+import com.knowva.quiz.model.Question;
+import com.knowva.quiz.model.Student;
+import com.knowva.quiz.model.Topic;
 import com.knowva.quiz.repository.MockQuestionRepository;
 
 import java.util.List;
@@ -9,8 +12,8 @@ import java.util.Scanner;
 public class QuizSession {
     private final MockQuestionRepository questionRepository;
     private final DifficultyEngine difficultyEngine;
-    private Student student;
-    private Topic topic;
+    private final Student student;
+    private final Topic topic;
     private int currentLevel;
     private int correct;
     private int total;
@@ -77,7 +80,7 @@ public class QuizSession {
 
     public void startPractice() {
         Scanner scanner = new Scanner(System.in);
-        while (usedQuestions.size() < possibleQuestions.size()) {
+        while (getUsedQuestions().size() < getPossibleQuestions().size()) {
             Question question = selectQuestion();
             System.out.print(question.toString());
             System.out.print("Enter your answer (number 1-3): ");
