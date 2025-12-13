@@ -1,0 +1,14 @@
+package com.knowva.quiz.model;
+
+public abstract class Question {
+    protected int difficulty;
+
+    public Question(int difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public abstract boolean checkAnswer();
+
+    @Override
+    public abstract String toString();
+}
