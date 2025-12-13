@@ -13,7 +13,6 @@ public class QuizSession {
     private final MockQuestionRepository questionRepository;
     private final DifficultyEngine difficultyEngine;
     private final Student student;
-    private final Topic topic;
     private int currentLevel;
     private int correct;
     private int total;
@@ -22,7 +21,6 @@ public class QuizSession {
 
     public QuizSession(Student student, Topic topic) {
         this.student = student;
-        this.topic = topic;
         this.currentLevel = student.getStatistics().getAccuracy();
         this.correct = 0;
         this.total = 0;
