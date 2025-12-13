@@ -1,5 +1,8 @@
 package com.knowva.quiz.service;
 
+import com.knowva.quiz.model.Question;
+import com.knowva.quiz.model.Student;
+import com.knowva.quiz.model.Topic;
 import com.knowva.quiz.repository.MockQuestionRepository;
 
 import java.util.List;
