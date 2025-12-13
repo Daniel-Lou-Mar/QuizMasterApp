@@ -35,7 +35,8 @@ public class Course {
         return topicList;
     }
 
-    public void addTopic(Topic topic) {
+    public void addTopic(String name) {
+        Topic topic = new Topic(name);
         this.topicList.add(topic);
     }
 }
