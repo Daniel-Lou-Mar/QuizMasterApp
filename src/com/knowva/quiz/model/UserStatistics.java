@@ -17,13 +17,13 @@ public class UserStatistics {
         this.totalAnswered = totalAnswered;
     }
 
-    public getAccuracy(){
+    public int getAccuracy(){
         if (totalAnswered == 0) return 0;
         int percentage =  (correctAnswered * 100)/totalAnswered;
         return percentage / 10 ;
     }
 
-    public update(int correct, int total){
+    public void update(int correct, int total){
        this.correctAnswered += correct;
        this.totalAnswered += total;
     }
