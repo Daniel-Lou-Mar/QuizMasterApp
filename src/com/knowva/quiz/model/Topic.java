@@ -3,7 +3,7 @@ package com.knowva.quiz.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Topipc {
+public class Topic {
     private static int NEXT_ID=0;
     private final int id;
     private String name;
@@ -15,9 +15,6 @@ public class Topipc {
         this.questionList = new ArrayList<>();
     }
 
-    public static int getNextId() {
-        return NEXT_ID;
-    }
 
     public int getId() {
         return id;
