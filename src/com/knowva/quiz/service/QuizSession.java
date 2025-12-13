@@ -46,7 +46,7 @@ public class QuizSession {
     }
 
     public void setCurrentLevel(boolean result) {
-        this.currentLevel = difficultyEngine.calculateNextDifficulty(this.currentLevel, result);
+        this.currentLevel = difficultyEngine.calculateNextDifficulty(getCurrentLevel(), result);
     }
 
     private boolean isUsed(Question question) {
@@ -54,7 +54,7 @@ public class QuizSession {
     }
 
     private Question selectQuestion() {
-        int difficulty = difficultyEngine.associateDifficulty(this.currentLevel);
+        int difficulty = difficultyEngine.associateDifficulty(getCurrentLevel());
         for (int i=0; i < getPossibleQuestions().size(); i++) {
             Question current = getPossibleQuestions().get(i);
             if (!isUsed(current)) {
@@ -81,7 +81,7 @@ public class QuizSession {
         while (usedQuestions.size() < possibleQuestions.size()) {
             Question question = selectQuestion();
             System.out.print(question.toString());
-            System.out.print("Enter your answer (number 0-3): ");
+            System.out.print("Enter your answer (number 1-3): ");
 
             int answer = -1;
             boolean isValidInput = false;
@@ -90,16 +90,16 @@ public class QuizSession {
                 if (!scanner.hasNextInt()) {
                     System.out.println("Invalid input. Please enter a valid number.");
                     scanner.next();
-                    System.out.print("Try again (number 0-3): ");
+                    System.out.print("Try again (number 1-3): ");
                     continue;
                 }
 
                 answer = scanner.nextInt();
 
-                if (answer >= 0 && answer <= 3) {
+                if (answer >= 1 && answer <= 3) {
                     isValidInput = true;
                 } else {
-                    System.out.println("Number out of range. Please enter a number between 0 and 3.");
+                    System.out.println("Number out of range. Please enter a number between 1 and 3.");
                     System.out.print("Try again: ");
                 }
             }
