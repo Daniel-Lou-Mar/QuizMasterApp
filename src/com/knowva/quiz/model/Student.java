@@ -17,6 +17,14 @@ public class Student {
         return course;
     }
 
-    public getStadistics(){
+    public UserStatistics getStatistics(){
+        return statistics;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public String getSurname() {
+        return surname;
     }
 }
