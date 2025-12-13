@@ -55,12 +55,11 @@ public class QuizSession {
 
     private Question selectQuestion() {
         int difficulty = difficultyEngine.associateDifficulty(getCurrentLevel());
-        for (int i=0; i < getPossibleQuestions().size(); i++) {
-            Question current = getPossibleQuestions().get(i);
-            if (!isUsed(current)) {
-                if (difficulty == current.getDifficulty()) {
-                    setUsedQuestion(current);
-                    return current;
+        for (Question q : getPossibleQuestions()) {
+            if (!isUsed(q)) {
+                if (difficulty == q.getDifficulty()) {
+                    setUsedQuestion(q);
+                    return q;
                 }
             }
         }
