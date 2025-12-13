@@ -19,7 +19,8 @@ public class UserStatistics {
 
     public getAccuracy(){
         if (totalAnswered == 0) return 0;
-        return (correctAnswered * 100)/totalAnswered;
+        int percentage =  (correctAnswered * 100)/totalAnswered;
+        return percentage / 10 ;
     }
 
     public update(int correct, int total){
