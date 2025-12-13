@@ -30,4 +30,3 @@ public class MultipleChoice extends Question{
         return sb.toString() + "\n";
     }
 }
-}
