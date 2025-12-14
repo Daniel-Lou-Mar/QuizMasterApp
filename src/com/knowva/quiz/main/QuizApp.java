@@ -83,20 +83,34 @@ public class QuizApp {
             System.out.println("------------");
         }
 
+        //First Student starts a maths exam
+
         System.out.println("\nStarting Math Exam for" + s4.getName() + "...");
         QuizSession session = new QuizSession(s4, mathFinal);
         session.startPractice();
 
 
+        //Second student start a java exam
         System.out.println("\n>>> Second Session: Searching for a Java Student...");
 
         for (Student s : studentDirectory) {
             if (s.getName().equals("Antonio")) {
-                System.out.println("Starting Java Exam for " + s.getName() + "...");
-                QuizSession sessionJava = new QuizSession(s, javaExam);
-                sessionJava.startPractice();
+
+                if (s.getEnrolledCourses().contains(javaCourse)) {
+                    QuizSession javaSession = new QuizSession(s, javaExam);
+                    javaSession.startPractice();
+                } else {
+                    System.out.println("Access Denied: Student is not enrolled in Java.");
+                }
                 break;
             }
         }
+
+        System.out.println("\n--- FINAL ACADEMY REPORT ---");
+        for (Student s : studentDirectory) {
+            System.out.println("Student " + s.getName() + "| Final Score: " + s.getStatistics());
+    }
+
+
     }
 }

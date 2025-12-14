@@ -31,12 +31,17 @@ public class Course {
         this.name = name;
     }
 
+    public void addTopic(Topic topic) {
+        this.topicList.add(topic);
+    }
+
+    public void addTopicByName(String name) {
+        Topic topic = new Topic(name);
+        this.topicList.add(topic);
+    }
+
     public List<Topic> getTopicList() {
         return topicList;
     }
 
-    public void addTopic(String name) {
-        Topic topic = new Topic(name);
-        this.topicList.add(topic);
-    }
 }
