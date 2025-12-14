@@ -1,7 +1,7 @@
 package com.knowva.quiz.repository;
 
-import com.knowva.quiz.repository.QuestionRepository;
-
+import com.knowva.quiz.model.Question;
+import com.knowva.quiz.model.Topic;
 import java.util.List;
 
 public class MockQuestionRepository implements QuestionRepository {

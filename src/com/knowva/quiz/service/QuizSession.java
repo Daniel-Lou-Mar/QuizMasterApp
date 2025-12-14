@@ -12,8 +12,7 @@ import java.util.Scanner;
 public class QuizSession {
     private final MockQuestionRepository questionRepository;
     private final DifficultyEngine difficultyEngine;
-    private Student student;
-    private Topic topic;
+    private final Student student;
     private int currentLevel;
     private int correct;
     private int total;
@@ -22,7 +21,6 @@ public class QuizSession {
 
     public QuizSession(Student student, Topic topic) {
         this.student = student;
-        this.topic = topic;
         this.currentLevel = student.getStatistics().getAccuracy();
         this.correct = 0;
         this.total = 0;
@@ -80,7 +78,7 @@ public class QuizSession {
 
     public void startPractice() {
         Scanner scanner = new Scanner(System.in);
-        while (usedQuestions.size() < possibleQuestions.size()) {
+        while (getUsedQuestions().size() < getPossibleQuestions().size()) {
             Question question = selectQuestion();
             System.out.print(question.toString());
             System.out.print("Enter your answer (number 1-3): ");

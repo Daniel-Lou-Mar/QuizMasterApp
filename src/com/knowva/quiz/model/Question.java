@@ -7,7 +7,11 @@ public abstract class Question {
         this.difficulty = difficulty;
     }
 
-    public abstract boolean checkAnswer();
+    public int getDifficulty() {
+        return difficulty;
+    }
+
+    public abstract boolean checkAnswer(int userAnswer);
 
     @Override
     public abstract String toString();
