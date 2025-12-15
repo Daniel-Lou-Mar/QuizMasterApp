@@ -9,7 +9,7 @@ public class DifficultyEngine {
     private static final int MIN_DIFFICULTY = 0;
 
     public int calculateNextDifficulty(int current_level, boolean isCorrect) {
-        int final_level = isCorrect ? current_level++ : current_level - 2;
+        int final_level = isCorrect ? current_level + 1 : current_level - 2;
         if (final_level > MAX_DIFFICULTY) {
             final_level = MAX_DIFFICULTY;
         }
@@ -20,7 +20,7 @@ public class DifficultyEngine {
     }
 
     public int associateDifficulty(int difficulty) {
-        if (difficulty > 0 && difficulty <= 3) {
+        if (difficulty >= 0 && difficulty <= 3) {
             return 0;
         }
         if (difficulty >= 4 && difficulty <= 6) {

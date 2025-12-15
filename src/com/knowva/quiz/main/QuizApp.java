@@ -4,7 +4,6 @@ import com.knowva.quiz.control.QuizMasterManager;
 import com.knowva.quiz.model.Course;
 import com.knowva.quiz.model.Student;
 import com.knowva.quiz.model.Topic;
-import com.knowva.quiz.service.QuizSession;
 
 import java.util.ArrayList;
 import java.util.List;
