@@ -2,13 +2,11 @@ package com.knowva.quiz.model;
 
 public class MultipleChoice extends Question{
     private String correctAnswer;
-    private String prompt;
     private String[] options;
 
 
-    public MultipleChoice(int difficulty, String prompt, String correctAnswer, String[] options) {
-        super(difficulty);
-        this.prompt = prompt;
+    public MultipleChoice(String question, int difficulty, String correctAnswer, String[] options) {
+        super(question, difficulty);
         this.correctAnswer = correctAnswer;
         this.options = options;
     }
@@ -25,7 +23,7 @@ public class MultipleChoice extends Question{
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("\n>>> ").append(prompt);
+        sb.append("\n>>> Question: ").append((question));
         sb.append("\n(Difficulty: ").append(difficulty).append(")");
         for (int i = 0; i < options.length; i++) {
             sb.append("\n").append(i + 1).append(". ").append(options[i]);
