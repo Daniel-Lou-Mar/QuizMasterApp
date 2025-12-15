@@ -82,33 +82,45 @@ public class QuizApp {
             System.out.println("1. Enroll more courses.");
             if (!student.getEnrolledCourses().isEmpty()) {
                 for (int i=0; i < student.getEnrolledCourses().size(); i++) {
-                    System.out.println((i+2)+ ". " + student.getEnrolledCourses().get(i));
+                    System.out.println((i+2)+ ". " + student.getEnrolledCourses().get(i).getName());
                 }
             }
 
-            int sum = student.getEnrolledCourses().isEmpty() ? 2 : student.getEnrolledCourses().size()+3;
+            int sum = student.getEnrolledCourses().isEmpty() ? 2 : student.getEnrolledCourses().size()+2;
 
             System.out.println(sum + ". Exit.");
 
-            int answer = sum == 2 ? checkInput(scanner, 2) : checkInput(scanner,student.getEnrolledCourses().size()+3);
+            int answer = sum == 2 ? checkInput(scanner, 2) : checkInput(scanner,student.getEnrolledCourses().size()+2);
 
 
             if (answer == 1) {
                 System.out.println("\nChoose one course to enroll:");
-                int j = 1;
-                for (Course c: quizMasterManager.getCourseList()) {
-                    if (!student.getEnrolledCourses().contains(c)) {
-                        System.out.println(j + ". " + c.getName());
-                        j++;
-                    }
+                List<Course> notEnrolled = notEnrrollList(student, quizMasterManager);
+                for (int i=0; i < notEnrolled.size(); i++) {
+                    System.out.println(i+1 + ". " + notEnrolled.get(i).getName());
                 }
-            } else if (answer == 2 && sum == 2 || sum != 2 && answer == student.getEnrolledCourses().size()+3) {
+
+                answer = checkInput(scanner,notEnrolled.size()+1);
+
+                student.enrollInCourses(notEnrolled.get(answer-1));
+
+            } else if (answer == 2 && sum == 2 || sum != 2 && answer == student.getEnrolledCourses().size()+2) {
                 break;
             }
 
         }
 
 
+    }
+
+    public static List<Course> notEnrrollList(Student student, QuizMasterManager quizMasterManager) {
+        List<Course> courses = new ArrayList<>();
+        for (Course c: quizMasterManager.getCourseList()) {
+            if (!student.getEnrolledCourses().contains(c)) {
+                courses.add(c);
+            }
+        }
+        return courses;
     }
 
     public static int checkInput(Scanner scanner, int max) {
