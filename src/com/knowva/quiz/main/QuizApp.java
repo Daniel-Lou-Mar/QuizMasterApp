@@ -96,7 +96,6 @@ public class QuizApp {
 
         }
         System.out.println("\n\n Thank you for using Knowa " + student.getName() + ".");
-
     }
 
     public static List<Course> notEnrrollList(Student student, QuizMasterManager quizMasterManager) {
