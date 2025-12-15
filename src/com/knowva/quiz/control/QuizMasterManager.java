@@ -49,6 +49,15 @@ public class QuizMasterManager {
         studentList.add(student);
     }
 
+    public Student getStudent(String name, String surname) {
+        for (Student t: getStudentList()) {
+            if (Objects.equals(t.getName(), name) &&  Objects.equals(t.getSurname(), surname)) {
+                return t;
+            }
+        }
+        return null;
+    }
+
     public List<QuizSession> getCurrentQuizSessionList() {
         return currentQuizSessionList;
     }

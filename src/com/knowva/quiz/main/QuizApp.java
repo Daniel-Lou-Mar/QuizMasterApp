@@ -8,6 +8,7 @@ import com.knowva.quiz.service.QuizSession;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class QuizApp {
     public static void main(String[] args) {
@@ -22,7 +23,7 @@ public class QuizApp {
         math.addTopic("Algebra & Calculus");
 
         Topic javaExam = java.getTopic("Java Core & Poo");
-        Topic mathFinal = java.getTopic("Algebra & Calculus");
+        Topic mathFinal = math.getTopic("Algebra & Calculus");
 
         // Basic Level (0 points)
         javaExam.addMultipleChoice("What does the Java compiler generate?", 0, "Bytecode", new String[]{"Source Code", "Bytecode", "Assembly"});
@@ -67,65 +68,68 @@ public class QuizApp {
         mathFinal.addMultipleChoice("What concept describes a quantity without bound?", 10, "Infinity", new String[]{"Zero", "One", "Infinity"});
         mathFinal.addMultipleChoice("What relates an input to exactly one output?", 10, "Function", new String[]{"Variable", "Function", "Constant"});
 
-        javaCourse.getTopicList().add(javaExam);
-        mathCourse.addTopic(mathFinal);
+        quizMasterManager.addStudent("Juan", "Pérez");
+        Student student = quizMasterManager.getStudent("Juan", "Pérez");
 
-        List<Student> studentDirectory = new ArrayList<>();
+        System.out.println(student.getEnrolledCourses());
 
-        Student s1 = new Student("Maria", "Llanos");
-        s1.enrollInCourses(javaCourse);
-        s1.enrollInCourses(mathCourse);
-
-        Student s2 = new Student("Sara", "Play");
-        s2.enrollInCourses(mathCourse);
-
-        Student s3 = new Student("Antonio", "Suarez");
-        s3.enrollInCourses(javaCourse);
-        s3.enrollInCourses(mathCourse);
-
-        Student s4 = new Student("Juan", "Lopez");
-        s4.enrollInCourses(mathCourse);
-
-        studentDirectory.add(s1);
-        studentDirectory.add(s2);
-        studentDirectory.add(s3);
-        studentDirectory.add(s4);
-
-
-        System.out.println("\n--- SCHOOL MANAGEMENET SYSTEM ---");
-        for (Student s : studentDirectory) {
-            s.printEnrolledCourses();
-            System.out.println("------------");
-        }
-
-        //First Student starts a maths exam
-
-        System.out.println("\nStarting Math Exam for" + s4.getName() + "...");
-        QuizSession session = new QuizSession(s4, mathFinal);
-        session.startPractice();
-
-
-        //Second student start a java exam
-        System.out.println("\n>>> Second Session: Searching for a Java Student...");
-
-        for (Student s : studentDirectory) {
-            if (s.getName().equals("Antonio")) {
-
-                if (s.getEnrolledCourses().contains(javaCourse)) {
-                    QuizSession javaSession = new QuizSession(s, javaExam);
-                    javaSession.startPractice();
-                } else {
-                    System.out.println("Access Denied: Student is not enrolled in Java.");
+        Scanner scanner = new Scanner(System.in);
+        while(true) {
+            System.out.println("------------------------------------------------------------------");
+            System.out.println("------------------Welcome to the KnowaQuizMaster------------------");
+            System.out.println("------------------------------------------------------------------");
+            System.out.println(student.getName() + " choose one course:");
+            System.out.println("1. Enroll more courses.");
+            if (!student.getEnrolledCourses().isEmpty()) {
+                for (int i=0; i < student.getEnrolledCourses().size(); i++) {
+                    System.out.println((i+2)+ ". " + student.getEnrolledCourses().get(i));
                 }
+            }
+
+            int sum = student.getEnrolledCourses().isEmpty() ? 2 : student.getEnrolledCourses().size()+3;
+
+            System.out.println(sum + ". Exit.");
+
+            int answer = sum == 2 ? checkInput(scanner, 2) : checkInput(scanner,student.getEnrolledCourses().size()+3);
+
+
+            if (answer == 1) {
+                System.out.println("\nChoose one course to enroll:");
+                int j = 1;
+                for (Course c: quizMasterManager.getCourseList()) {
+                    if (!student.getEnrolledCourses().contains(c)) {
+                        System.out.println(j + ". " + c.getName());
+                        j++;
+                    }
+                }
+            } else if (answer == 2 && sum == 2 || sum != 2 && answer == student.getEnrolledCourses().size()+3) {
                 break;
             }
+
         }
 
-        System.out.println("\n--- FINAL ACADEMY REPORT ---");
-        for (Student s : studentDirectory) {
-            System.out.println("Student " + s.getName() + "| Final Score: " + s.getStatistics());
-    }
-
 
     }
+
+    public static int checkInput(Scanner scanner, int max) {
+        int answer;
+        while (true) {
+            if (!scanner.hasNextInt()) {
+                System.out.println("Invalid input. Please enter a valid number.");
+                scanner.next();
+                System.out.print("Try again (number 1-" + max + "): ");
+                continue;
+            }
+
+            answer = scanner.nextInt();
+
+            if (answer >= 1 && answer <= max) {
+                return answer;
+            } else {
+                System.out.println("Number out of range. Please enter a number between 1 and " + max + ".");
+                System.out.print("Try again: ");
+            }
+        }
+    }
+
 }
