@@ -79,93 +79,23 @@ public class QuizApp {
         System.out.println("------------------------------------------------------------------");
 
         while(true) {
-            System.out.println("\n" + student.getName() + ", select a course or view your statistics:");
-            System.out.println("1. Enroll more courses.");
-            System.out.println("2. View my statistics.");
-            if (!student.getEnrolledCourses().isEmpty()) {
-                for (int i=0; i < student.getEnrolledCourses().size(); i++) {
-                    System.out.println((i+3)+ ". " + student.getEnrolledCourses().get(i).getName());
-                }
-            }
+            int[] answer = showFirstPage(scanner,student);
 
-            int sum = student.getEnrolledCourses().isEmpty() ? 3 : student.getEnrolledCourses().size()+3;
-
-            System.out.println(sum + ". Exit.");
-
-            int answer = sum == 3 ? checkInput(scanner, 3) : checkInput(scanner,student.getEnrolledCourses().size()+3);
-
-
-            if (answer == 1) {
-                System.out.println("\nChoose one course to enroll:");
-                List<Course> notEnrolled = notEnrrollList(student, quizMasterManager);
-
-                if (notEnrolled.isEmpty()) {
-                    System.out.println("You can not enroll to more courses.");
-                } else {
-                    for (int i=0; i < notEnrolled.size(); i++) {
-                        System.out.println(i+1 + ". " + notEnrolled.get(i).getName());
-                    }
-
-                    answer = checkInput(scanner,notEnrolled.size()+1);
-                    student.enrollInCourses(notEnrolled.get(answer-1));
-                }
-
-            } else if (answer == 2) {
-                System.out.println("\n--------My statistics--------");
-                System.out.println("Total answered: " + student.getStatistics().getTotalAnswered());
-                System.out.println("Correct answered: " + student.getStatistics().getCorrectAnswered());
-                System.out.println("Your actual level 1/10: " + student.getStatistics().getAccuracy());
-                System.out.println("-----------------------------");
-
-
-            } else if (answer == 3 && sum == 3 || sum != 3 && answer == student.getEnrolledCourses().size()+3) {
+            if (answer[0] == 1) {
+                int exitCode = ShowEnrollCoursesPage(scanner,student,quizMasterManager);
+                if (exitCode == 1) break;
+            } else if (answer[0] == 2) {
+                viewStatisticsPage(student);
+            } else if (answer[0] == 3 && answer[1] == 3 || answer[1] != 3 && answer[0] == student.getEnrolledCourses().size()+3) {
                 break;
             } else {
-                Course currentCourse = student.getEnrolledCourses().get(answer-3);
-                System.out.println("Choose one option:");
-                for (int i=0; i < currentCourse.getTopicList().size(); i++) {
-                    System.out.println(i+1 + ". " + currentCourse.getTopicList().get(i).getName());
-                }
-
-                System.out.println(currentCourse.getTopicList().size()+1 + ". Go back");
-                System.out.println(currentCourse.getTopicList().size()+2 + ". Exit");
-
-                answer = checkInput(scanner,currentCourse.getTopicList().size()+3);
-
-                if (answer == currentCourse.getTopicList().size()+1) {
-                } else if (answer == currentCourse.getTopicList().size()+2) {
-                    break;
-                } else {
-                    Topic currentTopic = currentCourse.getTopicList().get(answer-1);
-                    System.out.println("Choose one option:");
-                    System.out.println("1. See " + currentTopic.getName() + " contents");
-                    System.out.println("2. Do the topic quiz");
-                    System.out.println("3. Exit.");
-
-                    answer = checkInput(scanner, 2);
-                    if (answer == 3) {
-                        break;
-                    } else if (answer == 1) {
-                        while (answer == 1) {
-                            System.out.println("\nWork in progress.\n");
-                            System.out.println("Choose one option:");
-                            System.out.println("1. See topic contents");
-                            System.out.println("2. Do the topic quiz");
-                            System.out.println("3. Exit.");
-                            answer = checkInput(scanner, 2);
-                            if (answer == 3) {
-                                break;
-                            }
-                        }
-                    }
-
-                    quizMasterManager.startQuizSession(student, currentTopic);
-                }
+                Course currentCourse = student.getEnrolledCourses().get(answer[0]-3);
+                int exitCode = showCoursePage(scanner,student,currentCourse, quizMasterManager);
+                if (exitCode == 1) break;
             }
 
         }
-        System.out.println("\n\n Thank you for using Knowa " + student.getName());
-
+        System.out.println("\n\n Thank you for using Knowa " + student.getName() + ".");
     }
 
     public static List<Course> notEnrrollList(Student student, QuizMasterManager quizMasterManager) {
@@ -195,6 +125,102 @@ public class QuizApp {
             } else {
                 System.out.println("Number out of range. Please enter a number between 1 and " + max + ".");
                 System.out.print("Try again: ");
+            }
+        }
+    }
+
+    public static int[] showFirstPage(Scanner scanner,Student student) {
+        System.out.println("\n" + student.getName() + ", select a course or view your statistics:");
+        System.out.println("1. Enroll more courses.");
+        System.out.println("2. View my statistics.");
+        if (!student.getEnrolledCourses().isEmpty()) {
+            for (int i=0; i < student.getEnrolledCourses().size(); i++) {
+                System.out.println((i+3)+ ". " + student.getEnrolledCourses().get(i).getName());
+            }
+        }
+
+        int sum = student.getEnrolledCourses().isEmpty() ? 3 : student.getEnrolledCourses().size()+3;
+        System.out.println(sum + ". Exit.");
+
+        int answer = (sum == 3) ? checkInput(scanner, 3) : checkInput(scanner, student.getEnrolledCourses().size()+3);
+
+        return new int[] { answer, sum };
+    }
+
+    public static int ShowEnrollCoursesPage(Scanner scanner, Student student, QuizMasterManager quizMasterManager) {
+        List<Course> notEnrolled = notEnrrollList(student, quizMasterManager);
+
+        if (notEnrolled.isEmpty()) {
+            System.out.println("\n----You can not enroll to more courses.----");
+        } else {
+            System.out.println("\nChoose one course to enroll:");
+            for (int i=0; i < notEnrolled.size(); i++) {
+                System.out.println(i+1 + ". " + notEnrolled.get(i).getName());
+            }
+            System.out.println(notEnrolled.size()+1 + ". Go back.");
+            System.out.println(notEnrolled.size()+2 + ". Exit");
+
+            int answer = checkInput(scanner,notEnrolled.size() + 2);
+
+            if (answer == notEnrolled.size()+2) return 1;
+            if (answer == notEnrolled.size()+1) return 0;
+
+
+            student.enrollInCourses(notEnrolled.get(answer-1));
+        }
+        return 0;
+    }
+
+    public static void viewStatisticsPage(Student student) {
+        System.out.println("\n--------My statistics--------");
+        System.out.println("Total answered: " + student.getStatistics().getTotalAnswered());
+        System.out.println("Correct answered: " + student.getStatistics().getCorrectAnswered());
+        System.out.println("Your actual level 1/10: " + student.getStatistics().getAccuracy());
+        System.out.println("-----------------------------");
+    }
+
+    public static int showCoursePage(Scanner scanner, Student student, Course currentCourse, QuizMasterManager quizMasterManager) {
+        while (true) {
+            System.out.println("Choose one topic:");
+            for (int i = 0; i < currentCourse.getTopicList().size(); i++) {
+                System.out.println(i + 1 + ". " + currentCourse.getTopicList().get(i).getName());
+            }
+
+            System.out.println(currentCourse.getTopicList().size() + 1 + ". Go back");
+            System.out.println(currentCourse.getTopicList().size() + 2 + ". Exit");
+
+            int answer = checkInput(scanner, currentCourse.getTopicList().size() + 3);
+
+            if (answer == currentCourse.getTopicList().size() + 1) {
+                return 0;
+            } else if (answer == currentCourse.getTopicList().size() + 2) {
+                return 1;
+            } else {
+                Topic currentTopic = currentCourse.getTopicList().get(answer - 1);
+                int exitCode = showTopicPage(scanner, student, currentTopic, quizMasterManager);
+                if (exitCode == 1) return 1;
+            }
+        }
+    }
+
+    public static int showTopicPage(Scanner scanner, Student student, Topic currentTopic, QuizMasterManager quizMasterManager) {
+        while (true) {
+            System.out.println("Choose one option:");
+            System.out.println("1. See " + currentTopic.getName() + " contents");
+            System.out.println("2. Do the " + currentTopic.getName() + " quiz");
+            System.out.println("3. Go back.");
+            System.out.println("4. Exit.");
+
+            int answer = checkInput(scanner, 4);
+            if (answer == 4) {
+                return 1;
+            } else if (answer == 3) {
+                return 0;
+            }
+            else if (answer == 1) {
+                System.out.println("\n----Work in progress.----\n");
+            } else {
+                quizMasterManager.startQuizSession(student, currentTopic);
             }
         }
     }
