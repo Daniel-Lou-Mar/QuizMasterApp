@@ -15,7 +15,6 @@ public class Topic {
         this.questionList = new ArrayList<>();
     }
 
-
     public int getId() {
         return id;
     }
