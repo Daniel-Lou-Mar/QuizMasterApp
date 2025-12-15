@@ -15,42 +15,45 @@ public class QuizApp {
         Topic mathFinal = new Topic("Algebra & Calculus");
         Topic javaExam = new Topic("Java Core & Poo");
 
-        javaExam.addMultipleChoice(0, "Bytecode", new String[]{"Source Code", "Bytecode", "Assembly"});
-        javaExam.addMultipleChoice(0, "JVM", new String[]{"JDK", "JVM", "JRE"});
-        javaExam.addMultipleChoice(0, "int", new String[]{"int", "Integer", "String"});
-        javaExam.addMultipleChoice(0, "4", new String[]{"2", "4", "8"});
-        javaExam.addMultipleChoice(0, "Final", new String[]{"Static", "Final", "Abstract"});
 
-        javaExam.addMultipleChoice(5, "Extends", new String[]{"Implements", "Extends", "Inherits"});
-        javaExam.addMultipleChoice(5, "Constructor", new String[]{"Method", "Constructor", "Function"});
-        javaExam.addMultipleChoice(5, "This", new String[]{"Super", "This", "Self"});
-        javaExam.addMultipleChoice(5, "Overloading", new String[]{"Overloading", "Overriding", "Hiding"});
-        javaExam.addMultipleChoice(5, "Try-Catch", new String[]{"If-Else", "Try-Catch", "While"});
-
-        javaExam.addMultipleChoice(10, "Interface", new String[]{"Class", "Abstract Class", "Interface"});
-        javaExam.addMultipleChoice(10, "Garbage Collector", new String[]{"Memory Manager", "Garbage Collector", "Deleter"});
-        javaExam.addMultipleChoice(10, "Static", new String[]{"Dynamic", "Static", "Volatile"});
-        javaExam.addMultipleChoice(10, "Polymorphism", new String[]{"Encapsulation", "Polymorphism", "Abstraction"});
-        javaExam.addMultipleChoice(10, "Thread", new String[]{"Thread", "Process", "Task"});
+        javaExam.addMultipleChoice(0, "What is the output format of the Java compiler?", "Bytecode", new String[]{"Source Code", "Bytecode", "Assembly"});
+        javaExam.addMultipleChoice(0, "Which component runs the compiled Java code?", "JVM", new String[]{"JDK", "JVM", "JRE"});
+        javaExam.addMultipleChoice(0, "Which is a primitive data type for integers?", "int", new String[]{"int", "Integer", "String"});
+        javaExam.addMultipleChoice(0, "How many bytes does an 'int' type occupy in Java?", "4", new String[]{"2", "4", "8"});
+        javaExam.addMultipleChoice(0, "Which keyword prevents a variable from being modified?", "Final", new String[]{"Static", "Final", "Abstract"});
 
 
-        mathFinal.addMultipleChoice(0, "4", new String[]{"2", "4", "6"});
-        mathFinal.addMultipleChoice(0, "9", new String[]{"3", "6", "9"});
-        mathFinal.addMultipleChoice(0, "x=2", new String[]{"x=1", "x=2", "x=0"});
-        mathFinal.addMultipleChoice(0, "Hypotenuse", new String[]{"Leg", "Hypotenuse", "Angle"});
-        mathFinal.addMultipleChoice(0, "180", new String[]{"90", "180", "360"});
+        javaExam.addMultipleChoice(5, "Which keyword is used to inherit a class?", "Extends", new String[]{"Implements", "Extends", "Inherits"});
+        javaExam.addMultipleChoice(5, "What is the special method used to initialize objects?", "Constructor", new String[]{"Method", "Constructor", "Function"});
+        javaExam.addMultipleChoice(5, "Which keyword refers to the current instance of the class?", "This", new String[]{"Super", "This", "Self"});
+        javaExam.addMultipleChoice(5, "Having two methods with the same name but different parameters is:", "Overloading", new String[]{"Overloading", "Overriding", "Hiding"});
+        javaExam.addMultipleChoice(5, "Which block is used to handle runtime errors?", "Try-Catch", new String[]{"If-Else", "Try-Catch", "While"});
 
-        mathFinal.addMultipleChoice(5, "Derivative", new String[]{"Integral", "Derivative", "Limit"});
-        mathFinal.addMultipleChoice(5, "3.1416", new String[]{"2.71", "3.1416", "1.61"});
-        mathFinal.addMultipleChoice(5, "Prime", new String[]{"Even", "Odd", "Prime"});
-        mathFinal.addMultipleChoice(5, "y=mx+b", new String[]{"y=mx+b", "a^2+b^2=c^2", "E=mc^2"});
-        mathFinal.addMultipleChoice(5, "Logarithm", new String[]{"Power", "Root", "Logarithm"});
 
-        mathFinal.addMultipleChoice(10, "Integral", new String[]{"Integral", "Sum", "Product"});
-        mathFinal.addMultipleChoice(10, "Vector", new String[]{"Scalar", "Vector", "Matrix"});
-        mathFinal.addMultipleChoice(10, "Matrix", new String[]{"List", "Matrix", "Set"});
-        mathFinal.addMultipleChoice(10, "Infinity", new String[]{"Zero", "One", "Infinity"});
-        mathFinal.addMultipleChoice(10, "Function", new String[]{"Variable", "Function", "Constant"});
+        javaExam.addMultipleChoice(10, "What provides total abstraction and defines contracts?", "Interface", new String[]{"Class", "Abstract Class", "Interface"});
+        javaExam.addMultipleChoice(10, "What automatically manages memory by deleting unused objects?", "Garbage Collector", new String[]{"Memory Manager", "Garbage Collector", "Deleter"});
+        javaExam.addMultipleChoice(10, "Which keyword allows a member to belong to the class rather than an instance?", "Static", new String[]{"Dynamic", "Static", "Volatile"});
+        javaExam.addMultipleChoice(10, "The ability of an object to take many forms is called:", "Polymorphism", new String[]{"Encapsulation", "Polymorphism", "Abstraction"});
+        javaExam.addMultipleChoice(10, "What represents the smallest unit of execution within a process?", "Thread", new String[]{"Thread", "Process", "Task"});
+
+        javaExam.addMultipleChoice(0, "What is the output format of the Java compiler?", "Bytecode", new String[]{"Source Code", "Bytecode", "Assembly"});
+        javaExam.addMultipleChoice(0, "Which component runs the compiled Java code?", "JVM", new String[]{"JDK", "JVM", "JRE"});
+        javaExam.addMultipleChoice(0, "Which is a primitive data type for integers?", "int", new String[]{"int", "Integer", "String"});
+        javaExam.addMultipleChoice(0, "How many bytes does an 'int' type occupy in Java?", "4", new String[]{"2", "4", "8"});
+        javaExam.addMultipleChoice(0, "Which keyword prevents a variable from being modified?", "Final", new String[]{"Static", "Final", "Abstract"});
+
+        javaExam.addMultipleChoice(5, "Which keyword is used to inherit a class?", "Extends", new String[]{"Implements", "Extends", "Inherits"});
+        javaExam.addMultipleChoice(5, "What is the special method used to initialize objects?", "Constructor", new String[]{"Method", "Constructor", "Function"});
+        javaExam.addMultipleChoice(5, "Which keyword refers to the current instance of the class?", "This", new String[]{"Super", "This", "Self"});
+        javaExam.addMultipleChoice(5, "Having two methods with the same name but different parameters is:", "Overloading", new String[]{"Overloading", "Overriding", "Hiding"});
+        javaExam.addMultipleChoice(5, "Which block is used to handle runtime errors?", "Try-Catch", new String[]{"If-Else", "Try-Catch", "While"});
+
+        javaExam.addMultipleChoice(10, "What provides total abstraction and defines contracts?", "Interface", new String[]{"Class", "Abstract Class", "Interface"});
+        javaExam.addMultipleChoice(10, "What automatically manages memory by deleting unused objects?", "Garbage Collector", new String[]{"Memory Manager", "Garbage Collector", "Deleter"});
+        javaExam.addMultipleChoice(10, "Which keyword allows a member to belong to the class rather than an instance?", "Static", new String[]{"Dynamic", "Static", "Volatile"});
+        javaExam.addMultipleChoice(10, "The ability of an object to take many forms is called:", "Polymorphism", new String[]{"Encapsulation", "Polymorphism", "Abstraction"});
+        javaExam.addMultipleChoice(10, "What represents the smallest unit of execution within a process?", "Thread", new String[]{"Thread", "Process", "Task"});
+
 
         javaCourse.getTopicList().add(javaExam);
         mathCourse.addTopic(mathFinal);
