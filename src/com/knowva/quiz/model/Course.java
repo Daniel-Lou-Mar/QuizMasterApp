@@ -2,6 +2,7 @@ package com.knowva.quiz.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Course {
     private static int NEXT_ID=0;
@@ -31,17 +32,22 @@ public class Course {
         this.name = name;
     }
 
-    public void addTopic(Topic topic) {
-        this.topicList.add(topic);
-    }
-
-    public void addTopicByName(String name) {
+    public void addTopic(String name) {
         Topic topic = new Topic(name);
         this.topicList.add(topic);
     }
 
     public List<Topic> getTopicList() {
         return topicList;
+    }
+
+    public Topic getTopic(String topicName) {
+        for (Topic t: getTopicList()) {
+            if (Objects.equals(t.getName(), topicName)) {
+                return t;
+            }
+        }
+        return null;
     }
 
 }

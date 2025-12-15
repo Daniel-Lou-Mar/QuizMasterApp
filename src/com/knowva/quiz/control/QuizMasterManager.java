@@ -7,6 +7,7 @@ import com.knowva.quiz.service.QuizSession;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class QuizMasterManager {
     private List<Course> courseList;
@@ -30,6 +31,15 @@ public class QuizMasterManager {
         this.courseList.add(course);
     }
 
+    public Course getCourse(String courseName) {
+        for (Course c: getCourseList()) {
+            if (Objects.equals(c.getName(), courseName)) {
+                return c;
+            }
+        }
+        return null;
+    }
+
     public List<Student> getStudentList() {
         return studentList;
     }
@@ -43,11 +53,11 @@ public class QuizMasterManager {
         return currentQuizSessionList;
     }
 
-    public void addCurrentQuizSession(QuizSession currentQuizSession) {
+    private void addCurrentQuizSession(QuizSession currentQuizSession) {
         currentQuizSessionList.add(currentQuizSession);
     }
 
-    public void removeCurrentQuizSession(QuizSession currentQuizSession) {
+    private void removeCurrentQuizSession(QuizSession currentQuizSession) {
         currentQuizSessionList.remove(currentQuizSession);
     }
 
@@ -55,7 +65,7 @@ public class QuizMasterManager {
         return pastQuizSessionList;
     }
 
-    public void addPastQuizSession(QuizSession pastQuizSession) {
+    private void addPastQuizSession(QuizSession pastQuizSession) {
         pastQuizSessionList.add(pastQuizSession);
     }
 
