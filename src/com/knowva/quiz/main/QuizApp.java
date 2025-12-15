@@ -74,42 +74,98 @@ public class QuizApp {
         System.out.println(student.getEnrolledCourses());
 
         Scanner scanner = new Scanner(System.in);
+
+        System.out.println("------------------------------------------------------------------");
+        System.out.println("------------------Welcome to the KnowaQuizMaster------------------");
+        System.out.println("------------------------------------------------------------------");
+
         while(true) {
-            System.out.println("------------------------------------------------------------------");
-            System.out.println("------------------Welcome to the KnowaQuizMaster------------------");
-            System.out.println("------------------------------------------------------------------");
-            System.out.println(student.getName() + " choose one course:");
+            System.out.println("\n" + student.getName() + ", select a course or view your statistics:");
             System.out.println("1. Enroll more courses.");
+            System.out.println("2. View my statistics.");
             if (!student.getEnrolledCourses().isEmpty()) {
                 for (int i=0; i < student.getEnrolledCourses().size(); i++) {
-                    System.out.println((i+2)+ ". " + student.getEnrolledCourses().get(i).getName());
+                    System.out.println((i+3)+ ". " + student.getEnrolledCourses().get(i).getName());
                 }
             }
 
-            int sum = student.getEnrolledCourses().isEmpty() ? 2 : student.getEnrolledCourses().size()+2;
+            int sum = student.getEnrolledCourses().isEmpty() ? 3 : student.getEnrolledCourses().size()+3;
 
             System.out.println(sum + ". Exit.");
 
-            int answer = sum == 2 ? checkInput(scanner, 2) : checkInput(scanner,student.getEnrolledCourses().size()+2);
+            int answer = sum == 3 ? checkInput(scanner, 3) : checkInput(scanner,student.getEnrolledCourses().size()+3);
 
 
             if (answer == 1) {
                 System.out.println("\nChoose one course to enroll:");
                 List<Course> notEnrolled = notEnrrollList(student, quizMasterManager);
-                for (int i=0; i < notEnrolled.size(); i++) {
-                    System.out.println(i+1 + ". " + notEnrolled.get(i).getName());
+
+                if (notEnrolled.isEmpty()) {
+                    System.out.println("You can not enroll to more courses.");
+                } else {
+                    for (int i=0; i < notEnrolled.size(); i++) {
+                        System.out.println(i+1 + ". " + notEnrolled.get(i).getName());
+                    }
+
+                    answer = checkInput(scanner,notEnrolled.size()+1);
+                    student.enrollInCourses(notEnrolled.get(answer-1));
                 }
 
-                answer = checkInput(scanner,notEnrolled.size()+1);
+            } else if (answer == 2) {
+                System.out.println("\n--------My statistics--------");
+                System.out.println("Total answered: " + student.getStatistics().getTotalAnswered());
+                System.out.println("Correct answered: " + student.getStatistics().getCorrectAnswered());
+                System.out.println("Your actual level 1/10: " + student.getStatistics().getAccuracy());
+                System.out.println("-----------------------------");
 
-                student.enrollInCourses(notEnrolled.get(answer-1));
 
-            } else if (answer == 2 && sum == 2 || sum != 2 && answer == student.getEnrolledCourses().size()+2) {
+            } else if (answer == 3 && sum == 3 || sum != 3 && answer == student.getEnrolledCourses().size()+3) {
                 break;
+            } else {
+                Course currentCourse = student.getEnrolledCourses().get(answer-3);
+                System.out.println("Choose one option:");
+                for (int i=0; i < currentCourse.getTopicList().size(); i++) {
+                    System.out.println(i+1 + ". " + currentCourse.getTopicList().get(i).getName());
+                }
+
+                System.out.println(currentCourse.getTopicList().size()+1 + ". Go back");
+                System.out.println(currentCourse.getTopicList().size()+2 + ". Exit");
+
+                answer = checkInput(scanner,currentCourse.getTopicList().size()+3);
+
+                if (answer == currentCourse.getTopicList().size()+1) {
+                } else if (answer == currentCourse.getTopicList().size()+2) {
+                    break;
+                } else {
+                    Topic currentTopic = currentCourse.getTopicList().get(answer-1);
+                    System.out.println("Choose one option:");
+                    System.out.println("1. See " + currentTopic.getName() + " contents");
+                    System.out.println("2. Do the topic quiz");
+                    System.out.println("3. Exit.");
+
+                    answer = checkInput(scanner, 2);
+                    if (answer == 3) {
+                        break;
+                    } else if (answer == 1) {
+                        while (answer == 1) {
+                            System.out.println("\nWork in progress.\n");
+                            System.out.println("Choose one option:");
+                            System.out.println("1. See topic contents");
+                            System.out.println("2. Do the topic quiz");
+                            System.out.println("3. Exit.");
+                            answer = checkInput(scanner, 2);
+                            if (answer == 3) {
+                                break;
+                            }
+                        }
+                    }
+
+                    quizMasterManager.startQuizSession(student, currentTopic);
+                }
             }
 
         }
-
+        System.out.println("\n\n Thank you for using Knowa " + student.getName());
 
     }
 

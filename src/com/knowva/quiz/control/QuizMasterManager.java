@@ -79,7 +79,7 @@ public class QuizMasterManager {
     }
 
 
-    public void startSession(Student student, Topic topic) {
+    public void startQuizSession(Student student, Topic topic) {
         QuizSession quizSession = new QuizSession(student, topic);
         addCurrentQuizSession(quizSession);
         quizSession.startPractice();
