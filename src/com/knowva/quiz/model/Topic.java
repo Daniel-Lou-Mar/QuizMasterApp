@@ -36,8 +36,8 @@ public class Topic {
         this.questionList.add(question);
     }
 
-    public void addMultipleChoice(int difficulty, String correctAnswer , String[] options) {
-        MultipleChoice multipleChoice = new MultipleChoice(difficulty, correctAnswer, options);
+    public void addMultipleChoice(String question,int difficulty, String correctAnswer , String[] options) {
+        MultipleChoice multipleChoice = new MultipleChoice(question, difficulty, correctAnswer, options);
         addQuestion(multipleChoice);
     }
 }
